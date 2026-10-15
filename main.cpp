@@ -1,21 +1,38 @@
+#include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
+#include "game_parameters.hpp"
+#include "game_system.hpp"
+#include "ship.hpp"
+
+using gs = GameSystem;
+using param = Parameters;
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({200, 200}), "SFML works!");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(param::gameWidth, param::gameHeight), "SPACE Invaders");
 
-  while (window.isOpen()){
-      sf::Event event;
-      while (window.pollEvent(event)){
-      if (event.type == sf::Event::Closed){
-        window.close();
-      }
-    }
-    window.clear();
-    window.draw(shape);
-    window.display();
-  }
-  return 0;
+	gs::init();
+	while (window.isOpen())
+	{
+		static sf::Clock clock;
+		float dt = clock.restart().asSeconds();
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			return 0;
+		}
+	}
+
+	window / clear();
+	gs::update(dt);
+	gs::render(window);
+	sf::sleep(sf::seconds(param:time_step));
+
+	window.display();
+
+	std::cout << "Hello World" << std::endl;
+	return 0;
 }
