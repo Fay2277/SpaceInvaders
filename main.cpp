@@ -26,7 +26,7 @@ int main()
 		}
 	}
 
-	window / clear();
+	window.clear();
 	gs::update(dt);
 	gs::render(window);
 	sf::sleep(sf::seconds(param:time_step));
